@@ -4,6 +4,8 @@ interface ValidatePhoneType {
     name: string | undefined | null;
     price: number | undefined | null;
     description: string | undefined | null;
+    status?: string | number | null;
+    category_id?: string | null | number;
 }
 
 interface FormType {

@@ -23,8 +23,8 @@ interface PhoneTypeCreate {
   name: string | undefined | number | null;
   price: number | undefined | string | null;
   description: string | undefined | number | null;
-  status: string | number | null;
-  category_id: string | null | number;
+  status?: string | number | null;
+  category_id?: string | null | number;
 }
 
 function App() {
