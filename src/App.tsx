@@ -19,9 +19,20 @@ interface BeingDeletedType {
   beingDelete?: boolean;
 }
 
+interface PhoneTypeCreate {
+  name: string | undefined | number | null;
+  price: number | undefined | string | null;
+  description: string | undefined | number | null;
+  status: string | number | null;
+  category_id: string | null | number;
+}
+
 function App() {
   const [data, setData] = useState<PhoneType[]>([]);
-  const [beingDeleted, setBeingDeleted] = useState<BeingDeletedType>({id: '', beingDelete: false});
+  const [beingDeleted, setBeingDeleted] = useState<BeingDeletedType>({
+    id: "",
+    beingDelete: false,
+  });
 
   async function getData(url: string) {
     const resp = await fetch(url);
@@ -36,7 +47,7 @@ function App() {
 
   function removeItem(id: string) {
     if (id) {
-      setBeingDeleted({id: id, beingDelete: true})
+      setBeingDeleted({ id: id, beingDelete: true });
       fetch(`https://auth-rg69.onrender.com/api/products/${id}`, {
         method: "DELETE",
       })
@@ -54,15 +65,39 @@ function App() {
           console.log(err);
         })
         .finally(() => {
-          setBeingDeleted({id: id, beingDelete: false})
-        })
+          setBeingDeleted({ id: id, beingDelete: false });
+        });
     }
+  }
+
+  function handleSave(phone: PhoneTypeCreate) {
+    phone.status = 'active'
+    phone.category_id = '2'
+
+    fetch('https://auth-rg69.onrender.com/api/products/', {
+      method: "POST",
+      headers: {
+        'Content-type': "application/json"
+      },
+      body: JSON.stringify(phone)
+    })
+    .then(res => res.json())
+    .then(dd => {
+      if(dd.id) {
+        let copied = JSON.parse(JSON.stringify(data))
+        copied.push(dd)
+        setData(copied)
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   return (
     <>
       <div className="container mx-auto w-2/3 mb-10">
-        <Form></Form>
+        <Form save={handleSave}></Form>
 
         <div className="card-wrapper flex flex-wrap gap-5 justify-center">
           {data.length &&
