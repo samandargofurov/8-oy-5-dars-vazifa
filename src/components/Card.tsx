@@ -36,7 +36,7 @@ const Card: FC<CardType> = (props) => {
         </h3>
         <p className="text-gray-600 font-extralight">
           <span className="font-semibold text-black">Price: </span>
-          {props.data.price}
+          ${props.data.price}
         </p>
         <h3 className="text-gray-600 font-extralight">
           <span className="font-semibold text-black">Status: </span>

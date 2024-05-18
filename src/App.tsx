@@ -61,15 +61,16 @@ function App() {
 
   return (
     <>
-      <div className="container mx-auto w-2/3">
+      <div className="container mx-auto w-2/3 mb-10">
         <Form></Form>
 
         <div className="card-wrapper flex flex-wrap gap-5 justify-center">
           {data.length &&
-            data.map((phone) => {
+            data.map((phone, index) => {
               return (
                 <Card
                   beingDelete={beingDeleted}
+                  key={index}
                   rmFunction={removeItem}
                   data={phone}
                 ></Card>
